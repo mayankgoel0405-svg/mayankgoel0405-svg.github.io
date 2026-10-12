@@ -1,0 +1,16 @@
+[{
+"relation": ["delegate_permission/common.handle_all_urls"],
+
+"target": {
+
+"namespace": "android_app",
+
+"package_name": "com.jawlineapp.daily",
+
+"sha256_cert_fingerprints":
+
+["8B:72:98:3D:93:F6:9C:C0:44:AE:BE:B7:65:9C:58:BA:65:E6:3F:EF:60:91:A7:5C: }
+
+BC:29:58:50:54:87:62:FD"]
+
+}]
