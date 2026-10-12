@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Jawline: daily jaw and posture routine</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2f6f6b">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#eef0ec;--card:#fbfbf8;--ink:#1d2a2e;--mute:#5d6b6e;--line:#d5dad4;--accent:#2f6f6b;--accent-ink:#fff;--warm:#d98f2b;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141c1e;--card:#1c2629;--ink:#e8eeea;--mute:#98a8aa;--line:#2c393c;--accent:#5fb3ad;--accent-ink:#0f1a1b;--warm:#e8b05a}}
+:root[data-theme="dark"]{--bg:#141c1e;--card:#1c2629;--ink:#e8eeea;--mute:#98a8aa;--line:#2c393c;--accent:#5fb3ad;--accent-ink:#0f1a1b;--warm:#e8b05a}
+*{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+main{max-width:520px;margin:0 auto;padding:24px 18px 48px}
+h1{font:700 2rem/1.1 Georgia,"Times New Roman",serif;margin:0 0 6px;letter-spacing:-.01em}
+p{margin:0}.sub{color:var(--mute);margin-bottom:22px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px;text-align:center}
+.ring{position:relative;width:230px;height:230px;margin:6px auto 14px}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .t{fill:none;stroke:var(--line);stroke-width:10}
+.ring .p{fill:none;stroke:var(--accent);stroke-width:10;stroke-linecap:round;transition:stroke-dashoffset .25s linear}
+.ring.rest .p{stroke:var(--warm)}
+.time{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.time b{font:700 3.2rem/1 Georgia,serif;font-variant-numeric:tabular-nums}
+.time span{color:var(--mute);font-size:.9rem}
+h2{font:700 1.3rem/1.2 Georgia,serif;margin:0 0 6px}
+.how{color:var(--mute);min-height:4.5em;max-width:40ch;margin:0 auto 16px}
+.btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+button{font:inherit;font-weight:600;border-radius:12px;padding:12px 22px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);cursor:pointer;min-height:46px}
+button.ghost{background:transparent;color:var(--accent)}
+button:focus-visible{outline:3px solid var(--warm);outline-offset:2px}
+.steps{display:flex;gap:6px;justify-content:center;margin-bottom:14px}
+.steps i{width:28px;height:6px;border-radius:3px;background:var(--line)}
+.steps i.done{background:var(--accent)}.steps i.now{background:var(--warm)}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px;text-align:center}
+.stat b{display:block;font:700 1.8rem/1.1 Georgia,serif}.stat span{color:var(--mute);font-size:.85rem}
+.week{display:flex;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.day{text-align:center;font-size:.8rem;color:var(--mute)}
+.day i{display:block;width:26px;height:26px;border-radius:50%;border:2px solid var(--line);margin:4px auto 0}
+.day.on i{background:var(--accent);border-color:var(--accent)}
+.day.today i{border-color:var(--warm)}
+.list{margin:18px 0 0;padding:0;list-style:none}
+.list li{padding:10px 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:10px}
+.list li span{color:var(--mute);white-space:nowrap}
+.note{margin-top:20px;font-size:.85rem;color:var(--mute)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;margin-bottom:12px}
+.tabs button{padding:8px 16px;min-height:40px;white-space:nowrap;border-radius:999px;font-size:.9rem}
+.mew{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px}
+.mew ol{margin:10px 0 14px;padding-left:20px;color:var(--mute)}
+.mew li{margin-bottom:4px}
+@media (prefers-reduced-motion:reduce){.ring .p{transition:none}}
+</style>
+</head>
+<body>
+<main>
+<h1>Jawline</h1>
+<p class="sub">Short routines for every part of your face, plus a mewing guide. Pick an area and do it once a day.</p>
+<div class="tabs" id="tabs" role="tablist"></div>
+
+<section class="panel" aria-live="polite">
+  <div class="steps" id="steps"></div>
+  <div class="ring" id="ring">
+    <svg viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="44"/><circle class="p" id="arc" cx="50" cy="50" r="44" stroke-dasharray="276.46" stroke-dashoffset="0"/></svg>
+    <div class="time"><b id="clock">0:30</b><span id="phase">Ready</span></div>
+  </div>
+  <h2 id="name">Tongue posture hold</h2>
+  <p class="how" id="how"></p>
+  <div class="btns">
+    <button id="go">Start routine</button>
+    <button class="ghost" id="skip" hidden>Skip move</button>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><b id="streak">0</b><span>day streak</span></div>
+  <div class="stat"><b id="total">0</b><span>routines done</span></div>
+</div>
+<div class="week" id="week" aria-label="This week"></div>
+
+<section class="mew">
+<h2>Mewing guide</h2>
+<p style="color:var(--mute)">Mewing is resting your tongue on the roof of your mouth all day, not only during exercises.</p>
+<ol>
+<li>Lay your whole tongue flat on the roof of your mouth, including the back part.</li>
+<li>Keep the tip just behind your front teeth, not touching them.</li>
+<li>Close your lips and breathe through your nose.</li>
+<li>Keep your teeth lightly together or slightly apart, and your head level.</li>
+</ol>
+<div class="btns"><button id="chk">I checked my tongue</button></div>
+<p id="chkc" style="color:var(--mute);margin-top:10px;text-align:center"></p>
+</section>
+<p class="sub" id="len" style="margin:22px 0 0"></p>
+<ul class="list" id="list"></ul>
+<p class="note">These exercises build muscle tone and improve head and neck posture, which can change how your jaw and chin look. They can't change your bone structure, and there is little evidence that mewing reshapes an adult face. Its real value is a better resting posture and nose breathing. Stop if you feel pain or your jaw clicks or locks, and see a dentist or doctor if it continues.</p>
+</main>
+
+<script>
+const BASE=[
+{n:"Tongue posture hold",s:30,h:"Press your whole tongue flat against the roof of your mouth. Lips closed, teeth lightly touching. Breathe through your nose."},
+{n:"Chin tucks",s:40,h:"Sit tall. Pull your chin straight back, making a double chin. Hold 3 seconds, release, repeat."},
+{n:"Chin lifts",s:30,h:"Tilt your head back and look at the ceiling. Push your lower lip up like a kiss. Hold, release, repeat."},
+{n:"Jaw resistance",s:40,h:"Place your fist under your chin. Slowly open your mouth against the pressure, then close. Keep it gentle."},
+{n:"Side jaw press",s:40,h:"Put your palm on one side of your jaw. Push your jaw sideways into your hand for 5 seconds. Switch sides halfway."},
+{n:"Fish face",s:30,h:"Suck your cheeks in and smile with your lips pursed. Hold 5 seconds, relax, repeat."}];
+const A0={"Tongue posture hold":"Mewing","Chin tucks":"Jaw","Chin lifts":"Neck","Jaw resistance":"Jaw","Side jaw press":"Jaw","Fish face":"Cheeks"};
+const NEW=[
+{a:"Mewing",n:"Mewing swallow",s:30,h:"Tongue flat on the roof of your mouth. Swallow slowly without pushing on your teeth or tensing your cheeks, then hold the tongue up."},
+{a:"Mewing",n:"Wall posture reset",s:30,h:"Stand with your heels, hips, shoulders and head touching a wall. Tuck your chin slightly and keep your tongue on the roof of your mouth."},
+{a:"Neck",n:"Neck curl-ups",s:30,h:"Lie on your back. Tuck your chin and lift your head one inch. Hold 3 seconds, lower slowly, repeat."},
+{a:"Neck",n:"Neck side stretch",s:30,h:"Sit tall. Tilt your ear toward your shoulder and hold 15 seconds. Switch sides. Keep your shoulders relaxed."},
+{a:"Cheeks",n:"Cheek puff",s:30,h:"Fill your cheeks with air and move it from side to side, then to your upper and lower lip. Keep your lips sealed."},
+{a:"Cheeks",n:"Smile lift",s:30,h:"Smile as wide as you can without showing teeth. Press your fingertips on your cheeks, lift against them, hold 5 seconds."},
+{a:"Eyes",n:"Eye squeeze",s:30,h:"Squeeze your eyes shut for 3 seconds, then open them wide for 3 seconds. Keep your forehead relaxed."},
+{a:"Eyes",n:"Eye circles",s:30,h:"Look up, then slowly circle your eyes clockwise for 15 seconds, then counterclockwise. Keep your head still."},
+{a:"Eyes",n:"Palming",s:20,h:"Rub your palms together to warm them. Cup them over your closed eyes without pressing and breathe slowly."},
+{a:"Forehead",n:"Brow lift press",s:30,h:"Place your fingertips above your brows. Raise your brows against light pressure and hold 3 seconds, then release."},
+{a:"Forehead",n:"Frown smoother",s:30,h:"Rest your fingertips between your brows. Gently frown, hold 3 seconds, then relax and let your brow go smooth."},
+{a:"Lips",n:"Kiss and smile",s:30,h:"Pucker your lips into a kiss, then smile wide with lips closed. Alternate slowly."},
+{a:"Lips",n:"Lip press",s:30,h:"Press your lips together firmly for 5 seconds without clenching your teeth, then release. Repeat."}];
+const ALL=BASE.map(m=>({...m,a:A0[m.n]})).concat(NEW);
+const FULL=["Tongue posture hold","Mewing swallow","Chin tucks","Jaw resistance","Chin lifts","Fish face","Cheek puff","Eye squeeze","Brow lift press","Kiss and smile"];
+const AREAS=["Full face","Mewing","Jaw","Neck","Cheeks","Eyes","Forehead","Lips"];
+let MOVES=[],area="Full face";
+const REST=5,C=276.46;
+let i=0,left=0,total=0,mode="idle",timer=null;
+const $=id=>document.getElementById(id);
+function load(){try{return JSON.parse(localStorage.getItem("jawline")||"[]")}catch(e){return[]}}
+function save(a){try{localStorage.setItem("jawline",JSON.stringify(a))}catch(e){}}
+const key=d=>d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+let log=load();
+function stats(){
+  const set=new Set(log),t=new Date();let s=0,d=new Date(t);
+  if(!set.has(key(d)))d.setDate(d.getDate()-1);
+  while(set.has(key(d))){s++;d.setDate(d.getDate()-1)}
+  $("streak").textContent=s;$("total").textContent=log.length;
+  const w=$("week");w.innerHTML="";const mon=new Date(t);mon.setDate(t.getDate()-((t.getDay()+6)%7));
+  ["M","T","W","T","F","S","S"].forEach((l,n)=>{const x=new Date(mon);x.setDate(mon.getDate()+n);
+    const e=document.createElement("div");e.className="day"+(set.has(key(x))?" on":"")+(key(x)===key(t)?" today":"");
+    e.innerHTML=l+"<i></i>";w.appendChild(e)});
+}
+function drawSteps(){$("steps").innerHTML=MOVES.map((_,n)=>`<i class="${n<i&&mode!=="idle"?"done":""}${n===i&&mode!=="idle"?" now":""}"></i>`).join("")}
+function fmt(s){return Math.floor(s/60)+":"+String(s%60).padStart(2,"0")}
+function show(){
+  const m=MOVES[i];$("name").textContent=mode==="rest"?"Next: "+m.n:m.n;$("how").textContent=m.h;
+  $("clock").textContent=fmt(left);$("arc").style.strokeDashoffset=total?C*(1-left/total):0;
+  $("ring").className="ring"+(mode==="rest"?" rest":"");
+  $("phase").textContent=mode==="rest"?"Rest":mode==="run"?"Move "+(i+1)+" of "+MOVES.length:mode==="pause"?"Paused":"Ready";
+  drawSteps();
+}
+function begin(m){mode=m;total=left=m==="rest"?REST:MOVES[i].s;show()}
+function tick(){
+  left--;
+  if(left<0){
+    if(mode==="rest"){begin("run");return}
+    if(i<MOVES.length-1){i++;begin("rest")}else finish();
+  }else show();
+}
+function finish(){
+  clearInterval(timer);timer=null;mode="idle";const k=key(new Date());
+  if(!log.includes(k)){log.push(k);save(log)}
+  i=0;left=0;total=0;$("name").textContent="Routine complete";
+  $("how").textContent="Nice work. Come back tomorrow to keep your streak going.";
+  $("clock").textContent="0:00";$("phase").textContent="Done";$("arc").style.strokeDashoffset=0;
+  $("go").textContent="Start again";$("skip").hidden=true;stats();
+  $("steps").innerHTML=MOVES.map(()=>'<i class="done"></i>').join("");
+}
+let prev="run";
+$("go").onclick=()=>{
+  if(mode==="idle"){i=0;begin("rest");left=total=3;show();$("go").textContent="Pause";$("skip").hidden=false;timer=setInterval(tick,1000)}
+  else if(mode==="pause"){mode=prev;$("go").textContent="Pause";timer=setInterval(tick,1000);show()}
+  else{prev=mode;mode="pause";clearInterval(timer);$("go").textContent="Resume";show()}
+};
+$("skip").onclick=()=>{if(mode==="pause")return;if(i<MOVES.length-1){i++;begin("rest")}else finish()};
+function setArea(a){
+  area=a;clearInterval(timer);timer=null;mode="idle";i=0;total=0;
+  MOVES=a==="Full face"?FULL.map(n=>ALL.find(m=>m.n===n)):ALL.filter(m=>m.a===a);
+  left=MOVES[0].s;
+  $("go").textContent="Start routine";$("skip").hidden=true;
+  document.querySelectorAll("#tabs button").forEach(b=>{b.className=b.dataset.a===a?"":"ghost"});
+  const secs=MOVES.reduce((s,m)=>s+m.s+REST,0);
+  $("len").textContent=a+": "+MOVES.length+" moves, about "+Math.ceil(secs/60)+" min";
+  $("list").innerHTML=MOVES.map(m=>`<li><div>${m.n}</div><span>${m.s}s</span></li>`).join("");
+  show();
+}
+AREAS.forEach(a=>{const b=document.createElement("button");b.textContent=a;b.dataset.a=a;b.onclick=()=>setArea(a);$("tabs").appendChild(b)});
+const MK="jawline-mew";
+function mew(){try{const o=JSON.parse(localStorage.getItem(MK)||"{}");return o.d===key(new Date())?o.c:0}catch(e){return 0}}
+let mc=mew();
+function mshow(){$("chkc").textContent=mc?"Checked "+mc+" time"+(mc>1?"s":"")+" today. Aim for a few.":"No check-ins yet today."}
+$("chk").onclick=()=>{mc++;try{localStorage.setItem(MK,JSON.stringify({d:key(new Date()),c:mc}))}catch(e){}mshow()};
+mshow();setArea("Full face");stats();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("sw.js").catch(function(){})})}</script>
+</body>
+</html>
